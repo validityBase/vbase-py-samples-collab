@@ -28,6 +28,10 @@ Please contact vBase for help configuring your environment and to obtain an API 
 An API key provides simple managed access to commitment services
 without the need to worry about blockchains and cryptocurrency.
 
+Once you have the API key, the following notebook will guide you through the steps
+of setting up your Google Collab environment:
+https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/setup.ipynb
+
 If you have previously configured vBase access, for instance when using the `vbase-py-tools` package,
 you can re-use those settings from the `.env` file created during the initialization.
 
@@ -52,5 +56,6 @@ PRIVATE_KEY="USER_PRIVATE_KEY"
 
 ### Open notebooks in Collab
 
-Open any of the sample notebooks in Google Collab.
+Open any of the sample notebooks in Google Colab and get going!
 
+https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/
