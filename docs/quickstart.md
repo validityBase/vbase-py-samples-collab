@@ -19,7 +19,7 @@ The easiest way to get started with vBase is by accessing Python notebook sample
     Once you have the API key, the following notebook will guide you through the steps of setting up your Google Collab environment: [https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/setup.ipynb](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/setup.ipynb)
 
    2. **Option 2: Copy your existing vBase environment:**
-    If you have previously configured vBase access, for instance, when using the `vbase-py-tools` package, you can re-use those settings from the `.env` file created during the initialization. Copy `FORWARDER_ENDPOINT_URL`, `FORWARDER_API_KEY`, and `PRIVATE_KEY` values from you `.env` file to the secrets manager.
+    If you have previously configured vBase access, for instance, when using the `vbase-py-tools` package, you can re-use those settings from the `.env` file created during the initialization. Copy `FORWARDER_ENDPOINT_URL`, `FORWARDER_API_KEY`, and `PRIVATE_KEY` values from your `.env` file to the secrets manager.
 
 2. **Verify your environment:**
     Below is a summary of the configuration settings.
