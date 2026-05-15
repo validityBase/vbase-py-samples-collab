@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   update-main-docs:
     runs-on: ubuntu-latest
@@ -16,8 +19,8 @@ jobs:
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
 
       - name: Publish Documents
-        # main @ validityBase/docs
-        uses: validityBase/docs/publish-docs-action@dae3fa92603ea55c2081dcb6d15aa0ad1a6355cd
+        uses: validityBase/vbase-github-actions/.github/actions/publish-docs@v1
         with:
           docs-repo-access-token: ${{ secrets.DOCS_REPO_ACCESS_TOKEN }}
-          source-docs-path: 'docs'
+          source-docs-path: docs
+          target-repository-branch: main
