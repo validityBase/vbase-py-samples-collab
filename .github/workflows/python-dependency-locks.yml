@@ -1,0 +1,70 @@
+name: Python Dependency Locks
+
+on:
+  pull_request:
+    paths:
+      - "requirements*.in"
+      - "requirements*.txt"
+      - "samples/**/*.py"
+      - ".github/workflows/python-dependency-locks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lock-tooling:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # actions/checkout v5.0.1
+
+      - name: Install lock tooling
+        uses: validityBase/vbase-github-actions/.github/actions/setup-python-deps@v1
+        with:
+          requirements-files: |
+            requirements-lock.txt
+          python-version: "3.11"
+          require-hashes: "true"
+
+      - name: Regenerate lock tooling lock
+        run: pip-compile --strip-extras --no-annotate --allow-unsafe --generate-hashes -o requirements-lock.txt requirements-lock.in
+
+      - name: Verify lock tooling lock is committed
+        run: git diff --exit-code -- requirements-lock.txt
+
+  sample-locks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # actions/checkout v5.0.1
+
+      - name: Install lock tooling
+        uses: validityBase/vbase-github-actions/.github/actions/setup-python-deps@v1
+        with:
+          requirements-files: |
+            requirements-lock.txt
+          python-version: "3.11"
+          require-hashes: "true"
+
+      - name: Regenerate sample dependency lock
+        run: pip-compile --strip-extras --no-annotate --generate-hashes -o requirements.txt requirements.in
+
+      - name: Verify sample dependency lock is committed
+        run: git diff --exit-code -- requirements.txt
+
+      - name: Install sample dependencies
+        uses: validityBase/vbase-github-actions/.github/actions/setup-python-deps@v1
+        with:
+          requirements-files: |
+            requirements.txt
+          python-version: "3.11"
+          require-hashes: "true"
+
+      - name: Check installed dependencies
+        run: python -m pip check
+
+      - name: Compile helper module
+        run: python -m py_compile samples/collab_utils.py

@@ -22,3 +22,26 @@ The following samples illustrate common solutions built on top of the vBase SDK 
 Users can use the Collab secrets manager to store the vBase configuration state.
 
 Please follow the [Quickstart](docs/quickstart.md) guide to configure your Collab environment.
+
+Install local sample dependencies from the generated hash-locked requirements
+file:
+
+```bash
+python -m pip install --require-hashes -r requirements.txt
+```
+
+Use the pinned lock tooling before regenerating requirements files:
+
+```bash
+python -m pip install --require-hashes -r requirements-lock.txt
+```
+
+Dependency updates should be made in the matching `.in` file, then regenerated
+with the same `pip-compile` flags used in CI:
+
+```bash
+pip-compile --strip-extras --no-annotate --generate-hashes -o requirements.txt requirements.in
+pip-compile --strip-extras --no-annotate --allow-unsafe --generate-hashes -o requirements-lock.txt requirements-lock.in
+```
+
+Do not edit generated `.txt` lock files by hand.

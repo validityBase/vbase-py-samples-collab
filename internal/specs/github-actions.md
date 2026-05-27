@@ -15,3 +15,9 @@
 - Uses `validityBase/vbase-github-actions/.github/actions/publish-docs@v1`.
 - Publishes to the `main` branch of the central docs repository.
 - Uses `DOCS_REPO_ACCESS_TOKEN` for the central docs repository.
+
+### `.github/workflows/python-dependency-locks.yml`
+- Runs on pull requests that modify Python dependency inputs, generated locks, or helper modules.
+- Uses `validityBase/vbase-github-actions/.github/actions/setup-python-deps@v1`.
+- Regenerates sample and lock-tooling requirement locks with hashes.
+- Installs generated locks with `require-hashes: "true"`, runs `pip check`, and compiles `samples/collab_utils.py`.
