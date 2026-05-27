@@ -1,2 +1,4 @@
 vbase==1.0.0
-google
+# SQLAlchemy requires greenlet on Linux; keep it explicit so pip-compile output
+# is stable across local macOS regeneration and Ubuntu CI regeneration.
+greenlet>=3.2.0

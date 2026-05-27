@@ -37,7 +37,7 @@ python -m pip install --require-hashes -r requirements-lock.txt
 ```
 
 Dependency updates should be made in the matching `.in` file, then regenerated
-with the same `pip-compile` flags used in CI:
+with Python 3.11 and the same `pip-compile` flags used in CI:
 
 ```bash
 pip-compile --strip-extras --no-annotate --generate-hashes -o requirements.txt requirements.in
