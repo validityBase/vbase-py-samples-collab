@@ -16,7 +16,7 @@ verify vBase stamps from [Google Colab](https://colab.research.google.com/).
 
 | Sample | Description | Open in Colab |
 | --- | --- | --- |
-| Setup | Configure and validate the credentials used by the samples. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/setup.ipynb) |
+| Setup | Configure sample credentials and validate the vBase API key. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/setup.ipynb) |
 | Create a collection | Create or reuse a collection through the vBase API. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/create_set.ipynb) |
 | Stamp a text record | Stamp inline text and verify its CID. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/add_string_dataset_record.ipynb) |
 | Use vBase from async code | Run the synchronous client without blocking an application's event loop. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/add_string_dataset_record_async.ipynb) |

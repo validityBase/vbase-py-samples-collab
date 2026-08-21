@@ -23,6 +23,13 @@ PUBLIC_CONTENT_FILES = NOTEBOOKS + [
     REPOSITORY_ROOT / "docs" / "quickstart.md",
     REPOSITORY_ROOT / "samples" / "collab_utils.py",
 ]
+PINNED_HELPER_URL = (
+    "https://raw.githubusercontent.com/validityBase/"
+    "vbase-py-samples-collab/"
+    "e2340dec532fc10b003f184d24c8837bb814779c/"
+    "samples/collab_utils.py"
+)
+HELPER_NOTEBOOK_NAMES = EXPECTED_NOTEBOOK_NAMES - {"setup.ipynb"}
 
 LEGACY_OR_INTERNAL_MARKERS = (
     "from vbase import",
@@ -73,6 +80,14 @@ class NotebookTests(unittest.TestCase):
                         continue
                     self.assertIsNone(cell.get("execution_count"))
                     self.assertEqual(cell.get("outputs", []), [])
+
+    def test_notebooks_pin_the_reviewed_helper_version(self):
+        for notebook_path in NOTEBOOKS:
+            if notebook_path.name not in HELPER_NOTEBOOK_NAMES:
+                continue
+            with self.subTest(notebook=notebook_path.name):
+                notebook_text = notebook_path.read_text(encoding="utf-8")
+                self.assertIn(PINNED_HELPER_URL, notebook_text)
 
     def test_notebooks_do_not_reference_legacy_or_internal_configuration(self):
         for notebook_path in NOTEBOOKS:
