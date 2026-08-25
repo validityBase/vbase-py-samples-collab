@@ -34,6 +34,10 @@ VERIFIER_NOTEBOOK_NAMES = {
     "verify_portfolio_history_s3.ipynb",
     "verify_sentiment_dataset_history_s3.ipynb",
 }
+S3_PRODUCER_NOTEBOOK_NAMES = {
+    "produce_portfolio_history_s3.ipynb",
+    "produce_sentiment_dataset_history_s3.ipynb",
+}
 
 LEGACY_OR_INTERNAL_MARKERS = (
     "from vbase import",
@@ -122,6 +126,23 @@ class NotebookTests(unittest.TestCase):
                 )
                 self.assertIn("filter_by_user=OWNER_ADDRESS is None", source)
                 self.assertIn("user_address=owner_name", source)
+
+    def test_s3_producers_store_records_before_stamping(self):
+        """Do not publish a stamp before its corresponding record is stored."""
+        for notebook_path in NOTEBOOKS:
+            if notebook_path.name not in S3_PRODUCER_NOTEBOOK_NAMES:
+                continue
+            with self.subTest(notebook=notebook_path.name):
+                notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
+                source = "\n".join(
+                    get_python_source(cell)
+                    for cell in notebook["cells"]
+                    if cell["cell_type"] == "code"
+                )
+                self.assertLess(
+                    source.index("object_key = write_s3_object("),
+                    source.index("stamp = vbase_client.create_stamp("),
+                )
 
     def test_public_content_does_not_reference_internal_task_ids(self):
         for content_path in PUBLIC_CONTENT_FILES:
