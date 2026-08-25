@@ -1,4 +1,5 @@
-vbase
-google
-
-
+boto3
+matplotlib
+numpy
+pandas
+vbase-api

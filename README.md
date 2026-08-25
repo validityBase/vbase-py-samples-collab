@@ -1,24 +1,43 @@
-# vbase-py-samples
+# vBase Python Samples for Google Colab
 
-vBase Python Samples for Google Collab
-
--   Python 3.8+ support
-
----
-
-## License
-
-This project is licensed under the Apache 2.0 License - see the [LICENSE.txt](LICENSE.txt) file for details.
-
-## Introduction
-
-vBase creates a global auditable record of when data was created, by whom, and how it has changed (collectively, “data provenance”). Data producers can prove the provenance of their data to any external party, increasing its value and marketability. Data consumers can ensure the integrity of historical data and any derivative calculations. The result is trustworthy information that can be put into production quickly without expensive and time-consuming trials.
-
-vBase services do not require access to the data itself, assuring privacy. They also do not rely on centralized intermediaries, eliminating the technical, operating, and business risks of a trusted party controlling your data and its validation. vBase ensures data security and interoperability that is unattainable with legacy centralized systems. It does so by storing digital fingerprints of data, metadata, and revisions on secure public blockchains.
+These interactive examples use the recommended
+[`vbase-api`](https://pypi.org/project/vbase-api/) Python client to create and
+verify vBase stamps from [Google Colab](https://colab.research.google.com/).
 
 ## Getting Started
 
-The following samples illustrate common solutions built on top of the vBase SDK and services. The samples are adapted for use with [Google Collab](https://colab.research.google.com/).
-Users can use the Collab secrets manager to store the vBase configuration state.
+1. Sign in to [vBase](https://app.vbase.com) and copy your API key from
+   [Account Settings](https://app.vbase.com/profile#account_settings).
+2. Follow the [Quickstart](docs/quickstart.md) to add the API key to Google
+   Colab secrets.
+3. Open one of the examples below.
 
-Please follow the [Quickstart](docs/quickstart.md) guide to configure your Collab environment.
+## Samples
+
+| Sample | Description | Open in Colab |
+| --- | --- | --- |
+| Setup | Configure sample credentials and validate the vBase API key. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/setup.ipynb) |
+| Create a collection | Create or reuse a collection through the vBase API. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/create_set.ipynb) |
+| Stamp a text record | Stamp inline text and verify its CID. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/add_string_dataset_record.ipynb) |
+| Use vBase from async code | Run the synchronous client without blocking an application's event loop. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/add_string_dataset_record_async.ipynb) |
+| Create a portfolio history | Stamp portfolio CIDs and store the exact records in Amazon S3. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/produce_portfolio_history_s3.ipynb) |
+| Verify a portfolio history | Verify S3 records, their owner, collection, and timestamps. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/verify_portfolio_history_s3.ipynb) |
+| Create a sentiment history | Stamp sentiment CIDs and store the exact records in Amazon S3. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/produce_sentiment_dataset_history_s3.ipynb) |
+| Verify a sentiment history | Verify S3 records before using them in analytics. | [Open](https://colab.research.google.com/github/validityBase/vbase-py-samples-collab/blob/main/samples/verify_sentiment_dataset_history_s3.ipynb) |
+
+The Amazon S3 examples require additional AWS credentials and a bucket. The
+producer examples calculate each CID locally and submit the CID instead of the
+record contents; the exact record bytes remain in the configured S3 bucket.
+Each producer run creates a unique collection. Copy its printed collection CID
+into the matching verifier to select that history.
+
+## References
+
+- [vBase documentation](https://docs.vbase.com/)
+- [`vbase-api-py` documentation and source](https://github.com/validityBase/vbase-api-py)
+- [vBase REST API](https://app.vbase.com/swagger/)
+
+## License
+
+This project is licensed under the Apache License 2.0. See
+[LICENSE.txt](LICENSE.txt).
