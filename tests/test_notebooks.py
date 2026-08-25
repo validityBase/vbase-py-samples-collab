@@ -30,6 +30,10 @@ PINNED_HELPER_URL = (
     "samples/collab_utils.py"
 )
 HELPER_NOTEBOOK_NAMES = EXPECTED_NOTEBOOK_NAMES - {"setup.ipynb"}
+VERIFIER_NOTEBOOK_NAMES = {
+    "verify_portfolio_history_s3.ipynb",
+    "verify_sentiment_dataset_history_s3.ipynb",
+}
 
 LEGACY_OR_INTERNAL_MARKERS = (
     "from vbase import",
@@ -99,6 +103,25 @@ class NotebookTests(unittest.TestCase):
                     re.search(r"\b[A-Z]{2,10}-\d+\b", notebook_text),
                     notebook_path.name,
                 )
+
+    def test_verifiers_match_receipts_to_the_resolved_owner_account(self):
+        """Support receipts that identify their owner by vBase account name."""
+        for notebook_path in NOTEBOOKS:
+            if notebook_path.name not in VERIFIER_NOTEBOOK_NAMES:
+                continue
+            with self.subTest(notebook=notebook_path.name):
+                notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
+                source = "\n".join(
+                    get_python_source(cell)
+                    for cell in notebook["cells"]
+                    if cell["cell_type"] == "code"
+                )
+                self.assertIn(
+                    "owner_name = vbase_client.get_user(owner_address).name",
+                    source,
+                )
+                self.assertIn("filter_by_user=OWNER_ADDRESS is None", source)
+                self.assertIn("user_address=owner_name", source)
 
     def test_public_content_does_not_reference_internal_task_ids(self):
         for content_path in PUBLIC_CONTENT_FILES:
